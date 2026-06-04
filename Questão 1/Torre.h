@@ -1,4 +1,3 @@
-
 #ifndef TORRE_H
 #define TORRE_H
 
@@ -40,8 +39,9 @@ void imprimirMatriz(Grafo *G);
 void imprimirVertice(Grafo *G, int indice);
 
 // DIJKSTRA
-void dijkstra(Grafo *G, int origem, int destino);
-void imprimirCaminho(int anterior[], int destino);
+void Dijkstra(Grafo *G, int origem, int *dist, int *anterior);
+void imprimir_dijkstra(Grafo *G, int origem, int destino);
+void imprimirCaminho(Grafo *G, int anterior[], int destino);
 double calcularTempoNano(LARGE_INTEGER inicio, LARGE_INTEGER fim, LARGE_INTEGER frequencia);
 
 #endif
