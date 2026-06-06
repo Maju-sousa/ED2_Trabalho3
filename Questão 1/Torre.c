@@ -13,7 +13,7 @@ Grafo *criarGrafo(int qtdVertices)
 
     G->matrizAdj = (int **) malloc(qtdVertices * sizeof(int *));
 
-    for (i = 0; i < qtdVertices; i++)
+    for (i = 0; i< qtdVertices; i++)
     {
         G->matrizAdj[i] = (int *) calloc(qtdVertices, sizeof(int));
     }
@@ -215,6 +215,7 @@ void imprimirMatriz(Grafo *G)
 }
 
 //// DIJKSTRA
+
 void Dijkstra(Grafo *G, int origem, int *dist, int *anterior)
 {
     int *visitado;
@@ -227,7 +228,7 @@ void Dijkstra(Grafo *G, int origem, int *dist, int *anterior)
 
     for (i = 0; i < G->qtdVertices; i++)
     {
-        dist[i]     = INF;
+        dist[i] = INF;
         anterior[i] = -1;
     }
 
