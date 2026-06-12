@@ -22,7 +22,7 @@ typedef struct Grafo{
     int **matrizAdj;
 }Grafo;
 
-// CRIAÇÃO E DESTRUIÇÃO
+///CRIAÇÃO E DESTRUIÇÃo
 Grafo *criarGrafo(int qtdVertices);
 void liberarGrafo(Grafo **G);
 
@@ -34,7 +34,7 @@ void indiceParaEstado(int indice, int discos[]);
 int movimentoValido(int estado[], int disco, int destino);
 
 // MATRIZ DE ADJACÊNCIA
-void inserirAresta(Grafo *G, int origem, int destino, int peso);
+
 void imprimirMatriz(Grafo *G);
 void imprimirVertice(Grafo *G, int indice);
 
