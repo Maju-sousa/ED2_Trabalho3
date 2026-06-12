@@ -13,7 +13,7 @@ Grafo *criarGrafo(int qtdVertices)
 
     G->matrizAdj = (int **) malloc(qtdVertices * sizeof(int *));
 
-    for (i = 0; i< qtdVertices; i++)
+    for (i = 0; i < qtdVertices; i++)
     {
         G->matrizAdj[i] = (int *) calloc(qtdVertices, sizeof(int));
     }
@@ -169,14 +169,6 @@ int movimentoValido(int estado[], int disco, int destino)
 
     return valido;
 }
-
-//Mtriz de adjacencia:
-void inserirAresta(Grafo *G, int origem, int destino, int peso)
-{
-    G->matrizAdj[origem][destino] = peso;
-    G->matrizAdj[destino][origem] = peso;
-}
-
 void imprimirVertice(Grafo *G, int indice)
 {
     int i;
@@ -215,7 +207,6 @@ void imprimirMatriz(Grafo *G)
 }
 
 //// DIJKSTRA
-
 void Dijkstra(Grafo *G, int origem, int *dist, int *anterior)
 {
     int *visitado;
@@ -228,7 +219,7 @@ void Dijkstra(Grafo *G, int origem, int *dist, int *anterior)
 
     for (i = 0; i < G->qtdVertices; i++)
     {
-        dist[i] = INF;
+        dist[i]     = INF;
         anterior[i] = -1;
     }
 
