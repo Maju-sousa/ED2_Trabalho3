@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include "hashing.h"
 
-
 void inicializar(HashTable *h, int tamanho)
 {
      int i;
@@ -11,10 +10,13 @@ void inicializar(HashTable *h, int tamanho)
      h->colisoes = 0;
      h->tabela = (Slot *) malloc(sizeof(Slot) * tamanho);
 
-     for (i = 0; i < tamanho; i++)
+     i = 0;
+     while (i < tamanho)
+     {
           h->tabela[i].ocupado = 0;
+          i++;
+     }
 }
-
 
 void liberar(HashTable *h)
 {
@@ -22,13 +24,17 @@ void liberar(HashTable *h)
      h->tabela = NULL;
 }
 
-
 int metodoQuadratico(long chave)
 {
-     long ultimos4 = chave % 10000;
-     long quadrado = ultimos4 * ultimos4;
+     long semUltimo;
+     long meio4;
+     long quadrado;
      char buffer[20];
      char extraido[4];
+
+     semUltimo = chave / 10;
+     meio4 = semUltimo % 10000;
+     quadrado = meio4 * meio4;
 
      sprintf(buffer, "%08ld", quadrado);
 
@@ -40,17 +46,17 @@ int metodoQuadratico(long chave)
      return atoi(extraido);
 }
 
-
 int calcularEndereco(long chave, int tamanho)
 {
      int valor = metodoQuadratico(chave);
      return (valor % tamanho) + 1;
 }
 
-
 int calcularColisao(int enderecoAtual, int tamanho)
 {
-     int novo = (A_FATOR * enderecoAtual + C_FATOR) % tamanho;
+     int novo;
+
+     novo = (A_FATOR * enderecoAtual + C_FATOR) % tamanho;
 
      if (novo < 0)
           novo += tamanho;
@@ -58,13 +64,17 @@ int calcularColisao(int enderecoAtual, int tamanho)
      return novo + 1;
 }
 
-
 int inserir(HashTable *h, long chave)
 {
-     int posOriginal = calcularEndereco(chave, h->tamanho);
-     int pos = posOriginal;
-     int tentativas = 0;
-     int inserido = 0;
+     int posOriginal;
+     int pos;
+     int tentativas;
+     int inserido;
+
+     posOriginal = calcularEndereco(chave, h->tamanho);
+     pos = posOriginal;
+     tentativas = 0;
+     inserido = 0;
 
      while (tentativas < h->tamanho && inserido == 0)
      {
@@ -92,13 +102,14 @@ int inserir(HashTable *h, long chave)
      return pos;
 }
 
-
 void mostrarTabela(HashTable *h)
 {
      int i;
 
      printf("\n===== TABELA HASH (tamanho %d) =====\n", h->tamanho);
-     for (i = 0; i < h->tamanho; i++)
+
+     i = 0;
+     while (i < h->tamanho)
      {
           printf("Posicao %2d: ", i + 1);
 
@@ -106,21 +117,30 @@ void mostrarTabela(HashTable *h)
                printf("%ld\n", h->tabela[i].chave);
           else
                printf("---\n");
+
+          i++;
      }
+
      printf("=====================================\n");
 }
 
-
 void mostrarEstatisticas(HashTable *h)
 {
-     int ocupados = 0;
+     int ocupados;
      int i;
+     double densidade;
 
-     for (i = 0; i < h->tamanho; i++)
+     ocupados = 0;
+     i = 0;
+
+     while (i < h->tamanho)
+     {
           if (h->tabela[i].ocupado)
                ocupados++;
+          i++;
+     }
 
-     double densidade = (double) ocupados / h->tamanho;
+     densidade = (double) ocupados / h->tamanho;
 
      printf("\n===== ESTATISTICAS =====\n");
      printf("Colisoes ocorridas : %ld\n", h->colisoes);
