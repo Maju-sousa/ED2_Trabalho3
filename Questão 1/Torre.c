@@ -310,13 +310,11 @@ void imprimir_dijkstra(Grafo *G, int origem, int destino)
 
 void imprimirCaminho(Grafo *G, int anterior[], int destino)
 {
-    if (destino == -1)
+    if (destino != -1)
     {
-        return;
+        imprimirCaminho(G, anterior, anterior[destino]);
+        imprimirVertice(G, destino);
     }
-
-    imprimirCaminho(G, anterior, anterior[destino]);
-    imprimirVertice(G, destino);
 }
 
 double calcularTempoNano(LARGE_INTEGER inicio, LARGE_INTEGER fim, LARGE_INTEGER frequencia)
