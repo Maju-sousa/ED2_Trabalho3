@@ -3,6 +3,7 @@
 
 #define A_FATOR 3
 #define C_FATOR -1
+#define MODULO_HASH 23
 
 typedef struct
 {
@@ -23,9 +24,9 @@ void liberar(HashTable *h);
 
 int metodoQuadratico(long chave);
 
-int calcularEndereco(long chave, int tamanho);
+int calcularEndereco(long chave);
 
-int calcularColisao(int enderecoAtual, int tamanho);
+int calcularColisao(int enderecoAtual);
 
 int inserir(HashTable *h, long chave);
 

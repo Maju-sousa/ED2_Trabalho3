@@ -46,20 +46,20 @@ int metodoQuadratico(long chave)
      return atoi(extraido);
 }
 
-int calcularEndereco(long chave, int tamanho)
+int calcularEndereco(long chave)
 {
      int valor = metodoQuadratico(chave);
-     return (valor % tamanho) + 1;
+     return (valor % MODULO_HASH) + 1;
 }
 
-int calcularColisao(int enderecoAtual, int tamanho)
+int calcularColisao(int enderecoAtual)
 {
      int novo;
 
-     novo = (A_FATOR * enderecoAtual + C_FATOR) % tamanho;
+     novo = (A_FATOR * enderecoAtual + C_FATOR) % MODULO_HASH;
 
      if (novo < 0)
-          novo += tamanho;
+          novo += MODULO_HASH;
 
      return novo + 1;
 }
@@ -71,7 +71,7 @@ int inserir(HashTable *h, long chave)
      int tentativas;
      int inserido;
 
-     posOriginal = calcularEndereco(chave, h->tamanho);
+     posOriginal = calcularEndereco(chave);
      pos = posOriginal;
      tentativas = 0;
      inserido = 0;
@@ -87,7 +87,7 @@ int inserir(HashTable *h, long chave)
           else
           {
                h->colisoes++;
-               pos = calcularColisao(pos, h->tamanho);
+               pos = calcularColisao(pos);
                tentativas++;
           }
      }
@@ -146,6 +146,7 @@ void mostrarEstatisticas(HashTable *h)
      printf("Colisoes ocorridas : %ld\n", h->colisoes);
      printf("Posicoes ocupadas  : %d\n", ocupados);
      printf("Tamanho do vetor   : %d\n", h->tamanho);
+     printf("Modulo do calculo  : %d\n", MODULO_HASH);
      printf("Densidade          : %.4f (%.2f%%)\n", densidade, densidade * 100);
      printf("=========================\n");
 }
